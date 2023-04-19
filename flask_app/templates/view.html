@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand h1" href="/dashboard">Book Club Hub</a>  
+    <ul class="pl-4 navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-success" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="text-danger nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <p class="h2">Welcome {{user.first_name}}!</p>
+    </form>
+  </nav>
+    <!-- body -->
+    <div class="pt-lg-5 container">
+        <div class="shadow card" style="font-size: 24x;">
+            <div class="card-body">
+              <h5 class="card-title">{{ book.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Added By: {{ book.creator }}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Added on:: {{ book.created_at.strftime("%b %d %Y") }}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Last updated on:: {{ book.updated_at.strftime("%b %d %Y") }}</h6>
+
+
+
+              <p class="card-text">Description: {{ book.description }}</p>
+            </div>
+        </div>
+</body>
+</html>

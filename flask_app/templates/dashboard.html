@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand h1" href="/dashboard">Book Club Hub</a>  
+    <ul class="pl-4 navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="text-danger nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <p class="h2">Welcome {{user.first_name}}!</p>
+    </form>
+  </nav>
+    <!-- body -->
+    {% for message in get_flashed_messages(category_filter=['update_book']) %}
+                <h4 class="alert alert-success alert-dismissible fade show">{{ message }}</h4>
+            {% endfor %}
+    <div class="pt-4 container">
+        <div class="row">
+          <div class="col-sm">
+            <form action="/createbook" method="POST">
+              {% for message in get_flashed_messages(category_filter=['book']) %}
+                    <h4 class="alert alert-danger">{{ message }}</h4>
+                {% endfor %}
+                <h2>Add a new book</h2>
+                <input type="hidden" value="{{user.id}}" name="user_id">
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" class="form-control" id="title">
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input name="description" type="text" class="form-control" id="description">
+                </div>
+                <input class="btn btn-primary" type="submit" value="Add">
+            </form>
+          </div>
+          <!-- All Books -->
+
+          <div class="col-sm">
+            <h2 class="text-center">All Books</h2>
+            {% for book in books %}
+                <div style="gap: 15px;"  class="mb-lg-3 shadow card">
+                    <div class="card-body">
+                    <a href="/view/{{ book.id }}"><h5 class="card-title">{{book.title}}</h5></a>
+                    <h6 class="card-subtitle mb-2 text-muted">(added by {{book.creator.first_name}})</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    {% if book.user_id== user.id %}
+                        <a href="/edit/{{ book.id}}" class="card-link">Edit</a>
+                        <a href="/delete/{{ book.id }}" class="card-link">Delete</a>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+</body>
+</html>

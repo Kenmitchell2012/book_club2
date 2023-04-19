@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand h1" href="/dashboard">Book Club Hub</a>  
+    <ul class="pl-4 navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-success" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <p class="h2">Welcome {{user.first_name}}!</p>
+    </form>
+  </nav>
+    <!-- body -->
+    <div class="pt-lg-5 container">
+        <form action="/update/{{book.id}}" method="post" class="shadow mx-auto col-8 p-4 bg-light text-dark">
+            {% for message in get_flashed_messages(category_filter=['book']) %}
+                <h4 class="alert alert-danger">{{ message }}</h4>
+            {% endfor %}
+            {% with messages = get_flashed_messages(category_filter=['book']) %}
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>ERROR!!!!</strong>
+                        {% for message in messages %}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+            <h2>Edit {{book.title}}</h2>
+            <input type="hidden" name="user_id">
+            <div class="form-group">
+                <label for="name">Book Name:</label>
+                <input value="{{book.title}}" type="text" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="genre">Added By:</label>
+                <p type="text" name="creator" class="form-control" value="">{{book.creator}}</p>
+            </div>
+            <div class="form-group">
+                <label for="added_on">Added on:</label>
+                <p type="text" name="name" class="form-control" value=''>{{book.created_at.strftime("%b %d %Y")}}</p>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input value="{{book.description}}" type="text" name="description" class="form-control">
+            </div>
+            <a class="btn btn-danger" href="/delete/{{book.id}}">Delete</a>
+            <input type="Submit" value="Update" class="btn btn-primary">
+        </form>
+    </div>
+</body>
+</html>
