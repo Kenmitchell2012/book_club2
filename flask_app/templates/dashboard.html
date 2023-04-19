@@ -48,11 +48,11 @@
           <div class="col-sm">
             <h2 class="text-center">All Books</h2>
             {% for book in books %}
-                <div style="gap: 15px;"  class="mb-lg-3 shadow card">
+                <div style="gap: 15px; text-align: center;"  class="mb-lg-3 shadow card">
                     <div class="card-body">
-                    <a href="/view/{{ book.id }}"><h5 class="card-title">{{book.title}}</h5></a>
+                    <a href="/view/{{ book.id }}"><h5 style="text-decoration: underline;" class="card-title">{{book.title}}</h5></a>
                     <h6 class="card-subtitle mb-2 text-muted">(added by {{book.creator.first_name}})</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                     {% if book.user_id== user.id %}
                         <a href="/edit/{{ book.id}}" class="card-link">Edit</a>
                         <a href="/delete/{{ book.id }}" class="card-link">Delete</a>
